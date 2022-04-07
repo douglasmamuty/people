@@ -5,17 +5,25 @@ import android.util.Log;
 public class PeopleModel {
     private int id;
     private String name, email,birthday;
-    private static final String TAG = "peopleModel";
+    private byte[] avatar;
 
-    public PeopleModel(int id, String name, String email, String birthday){
+    public PeopleModel(int id, String name, String email, String birthday, byte[] avatar){
         this.id= id;
         this.name = name;
         this.email = email;
         this.birthday = birthday;
+        this.avatar = avatar;
     }
 
     public PeopleModel(){}
 
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
 
     public int getId() {
         return id;
@@ -47,5 +55,9 @@ public class PeopleModel {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String toString(){
+        return "People{Id: "+String.valueOf(this.id)+"\nName: "+this.name+",\nEmail: "+this.email+"\nBirthday: "+this.birthday+"\nAvatar: "+String.valueOf(this.avatar)+"}";
     }
 }

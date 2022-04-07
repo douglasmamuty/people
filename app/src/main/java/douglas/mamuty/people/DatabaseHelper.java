@@ -6,7 +6,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,7 +20,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
-                "create table "+ TABLE_NAME +"(id integer primary key, name text,email text,birthday date)"
+                "create table "+ TABLE_NAME +"(id integer primary key, name text,email text,birthday date, avatar BLOB)"
         );
     }
     @Override
@@ -30,13 +29,15 @@ class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insert(String name, String email, String birthday) {
+    public boolean insert(PeopleModel people) {
+        Log.d("DEBUG", "insert: "+ people.toString());
         try{
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
-            contentValues.put("name", name);
-            contentValues.put("email", email);
-            contentValues.put("birthday", birthday);
+            contentValues.put("name", people.getName());
+            contentValues.put("email", people.getEmail());
+            contentValues.put("birthday", people.getBirthday());
+            contentValues.put("avatar", people.getAvatar());
             db.insert(TABLE_NAME, null, contentValues);
             return true;
         } catch (SQLException e){
@@ -65,7 +66,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         c.getInt(0),
                         c.getString(1),
                         c.getString(2),
-                        c.getString(3)
+                        c.getString(3),
+                        c.getBlob(4)
                 ));
             } while (c.moveToNext());
             // moving our cursor to next.
@@ -94,7 +96,8 @@ class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getInt(0),
                 cursor.getString(1),
                 cursor.getString(2),
-                cursor.getString(3)
+                cursor.getString(3),
+                cursor.getBlob(4)
         );
 
         cursor.close();
@@ -108,6 +111,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put("name", people.getName());
             contentValues.put("email", people.getEmail());
             contentValues.put("birthday", people.getBirthday());
+            contentValues.put("avatar", people.getAvatar());
             db.update(TABLE_NAME, contentValues, "id = ?",new String[]{String.valueOf(people.getId())});
             return true;
         } catch (SQLException e){
