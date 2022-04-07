@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         // initializing our all variables.
         peopleModelsArrayList = new ArrayList<>();
 
-
         // getting our people array
         peopleModelsArrayList = helper.list();
 

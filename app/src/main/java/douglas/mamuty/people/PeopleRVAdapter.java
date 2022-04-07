@@ -2,15 +2,15 @@ package douglas.mamuty.people;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
@@ -47,6 +47,7 @@ public class PeopleRVAdapter  extends RecyclerView.Adapter<PeopleRVAdapter.ViewH
             holder.name.setText(modal.getName());
             holder.email.setText(modal.getEmail());
             holder.birthday.setText(modal.getBirthday());
+            holder.avatar.setBackground(new BitmapDrawable(context.getResources(), BitmapFactory.decodeByteArray(modal.getAvatar(), 0, modal.getAvatar().length)));
 
             //bind the edit action on btn
             holder.btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +91,7 @@ public class PeopleRVAdapter  extends RecyclerView.Adapter<PeopleRVAdapter.ViewH
             // creating variables for our text views.
             TextView name, email, birthday;
             Button btnDelete, btnEdit;
+            ImageView avatar;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -99,6 +101,7 @@ public class PeopleRVAdapter  extends RecyclerView.Adapter<PeopleRVAdapter.ViewH
                 birthday = itemView.findViewById(R.id.idBirthday);
                 btnDelete = itemView.findViewById(R.id.btnDelete);
                 btnEdit = itemView.findViewById(R.id.btnEdit);
+                avatar = itemView.findViewById(R.id.avatar);
             }
         }
 
