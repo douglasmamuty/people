@@ -1,2 +1,2 @@
 # people
-A POC of list people in android native
+A POC of list people in android native using java
